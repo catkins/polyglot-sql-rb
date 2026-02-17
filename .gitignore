@@ -14,8 +14,23 @@ target
 **/mutants.out*/
 
 # RustRover
-#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
-#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
-#  and can be added to the global gitignore or merged into this file.  For a more nuclear
-#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Ruby / Bundler
+/.bundle/
+/vendor/bundle
+Gemfile.lock
+
+# Compiled native extension
+/lib/polyglot/*.so
+/lib/polyglot/*.bundle
+/lib/polyglot/*.dll
+/lib/polyglot/[0-9]*
+/tmp/
+
+# Package files
+*.gem
+/pkg/
+
+# Cargo.lock for library crates
+Cargo.lock

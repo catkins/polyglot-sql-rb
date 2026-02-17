@@ -1,0 +1,17 @@
+[package]
+name = "polyglot_rb"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT"
+description = "Ruby bindings for polyglot-sql transpiler"
+
+[lib]
+name = "polyglot_rb"
+crate-type = ["cdylib"]
+
+[dependencies]
+polyglot-sql = "0.1"
+magnus = { version = "0.8", features = ["rb-sys"] }
+rb-sys = { version = "0.9", features = ["stable-api-compiled-fallback"] }
+serde_json = "1.0"
