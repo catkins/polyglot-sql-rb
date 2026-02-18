@@ -73,10 +73,41 @@ Polyglot.dialects
 
 ## Supported Dialects
 
-Athena, BigQuery, ClickHouse, CockroachDB, Databricks, Doris, Dremio, Drill,
-Druid, DuckDB, Dune, Exasol, Fabric, Generic, Hive, Materialize, MySQL, Oracle,
-PostgreSQL, Presto, Redshift, RisingWave, SingleStore, Snowflake, Solr, Spark,
-SQLite, StarRocks, Tableau, Teradata, TiDB, Trino, T-SQL
+<!-- SUPPORTED_DIALECTS:START -->
+- Generic
+- Athena
+- BigQuery
+- ClickHouse
+- CockroachDB
+- Databricks
+- Doris
+- Dremio
+- Drill
+- Druid
+- DuckDB
+- Dune
+- Exasol
+- Fabric
+- Hive
+- Materialize
+- MySQL
+- Oracle
+- PostgreSQL
+- Presto
+- Redshift
+- RisingWave
+- SingleStore
+- Snowflake
+- Solr
+- Spark
+- SQLite
+- StarRocks
+- Tableau
+- Teradata
+- TiDB
+- Trino
+- T-SQL
+<!-- SUPPORTED_DIALECTS:END -->
 
 ## Error Handling
 
@@ -95,6 +126,7 @@ bundle exec rake          # compile + test
 bundle exec rake compile  # compile only
 bundle exec rake spec     # test only
 bundle exec standardrb    # lint
+bundle exec rake docs:dialects  # sync README dialect list
 ```
 
 ## License

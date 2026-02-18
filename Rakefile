@@ -15,3 +15,10 @@ end
 
 task default: %i[compile spec]
 task test: :spec
+
+namespace :docs do
+  desc "Sync README supported dialect list from ext/polyglot_rb/src/dialect.rs"
+  task :dialects do
+    ruby "scripts/sync_readme_dialects.rb"
+  end
+end
