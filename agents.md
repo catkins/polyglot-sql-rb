@@ -1,4 +1,4 @@
-# agents.md — polyglot-rb
+# agents.md — polyglot-sql
 
 ## Project Overview
 

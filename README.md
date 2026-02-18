@@ -1,4 +1,4 @@
-# polyglot-rb
+# polyglot-sql
 
 Ruby bindings for [polyglot-sql](https://github.com/tobilg/polyglot) — a Rust-based SQL transpiler supporting 30+ database dialects.
 
@@ -7,7 +7,7 @@ Ruby bindings for [polyglot-sql](https://github.com/tobilg/polyglot) — a Rust-
 Add to your Gemfile:
 
 ```ruby
-gem "polyglot-rb"
+gem "polyglot-sql"
 ```
 
 Requires Rust toolchain for compilation. Install via [rustup](https://rustup.rs/).

@@ -6,7 +6,7 @@ require "rb_sys/extensiontask"
 
 RSpec::Core::RakeTask.new(:spec)
 
-GEMSPEC = Gem::Specification.load("polyglot-rb.gemspec")
+GEMSPEC = Gem::Specification.load("polyglot-sql.gemspec")
 
 RbSys::ExtensionTask.new("polyglot_rb", GEMSPEC) do |ext|
   ext.lib_dir = "lib/polyglot"
