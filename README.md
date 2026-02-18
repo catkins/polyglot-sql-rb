@@ -1,6 +1,6 @@
 # polyglot-sql
 
-[![Build status](https://badge.buildkite.com/e9b6acd7cb9addaa60ca20a96e74f3934285e9ccbd969358f2.svg)](https://buildkite.com/catkins-test/polyglot-sql-rb)
+[![Build status](https://badge.buildkite.com/e9b6acd7cb9addaa60ca20a96e74f3934285e9ccbd969358f2.svg)](https://buildkite.com/catkins-test/polyglot-sql-rb) [![Gem Version](https://badge.fury.io/rb/polyglot-sql.svg)](https://badge.fury.io/rb/polyglot-sql)
 
 Ruby bindings for [polyglot-sql](https://github.com/tobilg/polyglot) — a Rust-based SQL transpiler supporting 30+ database dialects.
 
