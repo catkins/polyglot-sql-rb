@@ -144,6 +144,18 @@ RSpec.describe Polyglot do
         Polyglot.generate(ast, dialect: :nonexistent)
       }.to raise_error(ArgumentError, /unknown dialect/i)
     end
+
+    it "raises GenerateError for invalid AST hash" do
+      expect {
+        Polyglot.generate({"bad" => 1}, dialect: :generic)
+      }.to raise_error(Polyglot::GenerateError, /Invalid AST JSON/)
+    end
+
+    it "raises concise GenerateError for invalid AST JSON strings" do
+      expect {
+        Polyglot.generate("{\"bad\":1}", dialect: :generic)
+      }.to raise_error(Polyglot::GenerateError, /Invalid AST JSON/)
+    end
   end
 
   describe ".format" do

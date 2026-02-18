@@ -42,7 +42,13 @@ fn generate(ast_json: String, dialect_name: String) -> Result<String, Error> {
     let dialect_type = dialect::dialect_from_name(&dialect_name)?;
 
     let expression: polyglot_sql::expressions::Expression = serde_json::from_str(&ast_json)
-        .map_err(|e| errors::polyglot_error(format!("JSON deserialization error: {e}")))?;
+        .map_err(|e| {
+            errors::generate_error(format!(
+                "Invalid AST JSON for SQL generation at line {}, column {}",
+                e.line(),
+                e.column()
+            ))
+        })?;
 
     polyglot_sql::generate(&expression, dialect_type)
         .map_err(errors::map_polyglot_error)
