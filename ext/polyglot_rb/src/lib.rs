@@ -5,8 +5,10 @@ mod errors;
 
 fn transpile(sql: String, from: String, to: String) -> Result<RArray, Error> {
     let ruby = Ruby::get().expect("Ruby runtime not available");
+    let from_dialect = dialect::dialect_from_name(&from)?;
+    let to_dialect = dialect::dialect_from_name(&to)?;
 
-    let results = polyglot_sql::transpile_by_name(&sql, &from, &to)
+    let results = polyglot_sql::transpile(&sql, from_dialect, to_dialect)
         .map_err(errors::map_polyglot_error)?;
 
     let arr = ruby.ary_new_capa(results.len());
@@ -17,7 +19,9 @@ fn transpile(sql: String, from: String, to: String) -> Result<RArray, Error> {
 }
 
 fn parse(sql: String, dialect_name: String) -> Result<String, Error> {
-    let expressions = polyglot_sql::parse_by_name(&sql, &dialect_name)
+    let dialect_type = dialect::dialect_from_name(&dialect_name)?;
+
+    let expressions = polyglot_sql::parse(&sql, dialect_type)
         .map_err(errors::map_polyglot_error)?;
 
     serde_json::to_string(&expressions)
@@ -35,10 +39,12 @@ fn parse_one(sql: String, dialect_name: String) -> Result<String, Error> {
 }
 
 fn generate(ast_json: String, dialect_name: String) -> Result<String, Error> {
+    let dialect_type = dialect::dialect_from_name(&dialect_name)?;
+
     let expression: polyglot_sql::expressions::Expression = serde_json::from_str(&ast_json)
         .map_err(|e| errors::polyglot_error(format!("JSON deserialization error: {e}")))?;
 
-    polyglot_sql::generate_by_name(&expression, &dialect_name)
+    polyglot_sql::generate(&expression, dialect_type)
         .map_err(errors::map_polyglot_error)
 }
 
