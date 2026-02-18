@@ -120,6 +120,12 @@ Polyglot::GenerateError    # SQL generation errors
 Polyglot::UnsupportedError # Unsupported dialect features
 ```
 
+### Error Semantics
+
+- Unknown dialects raise `ArgumentError` (for `transpile`, `parse`, `parse_one`, `generate`, `format`, and `validate`).
+- `generate` raises `Polyglot::GenerateError` for invalid AST payloads.
+- Invalid AST error messages are concise and include line/column context when available.
+
 ## Development
 
 ```bash
@@ -130,6 +136,13 @@ bundle exec rake spec     # test only
 bundle exec standardrb    # lint
 bundle exec rake docs:dialects  # sync README dialect list
 ```
+
+## CI
+
+Buildkite runs:
+- Ruby build + test matrix on Ruby 3.2, 3.3, 3.4, and 4.0
+- Ruby lint (`standardrb`)
+- Rust checks (`cargo check` and `cargo clippy -- -D warnings`)
 
 ## License
 
