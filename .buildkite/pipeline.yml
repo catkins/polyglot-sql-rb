@@ -13,6 +13,10 @@ steps:
         command: .buildkite/steps/build-and-test.sh
         image: "ruby:3.4"
 
+      - label: ":ruby: Ruby 4.0"
+        command: .buildkite/steps/build-and-test.sh
+        image: "ruby:4.0"
+
   - label: ":standardrb: Lint"
     command:
       - bundle install
