@@ -24,13 +24,13 @@ RSpec.describe Polyglot do
     it "raises Polyglot::ParseError for invalid SQL" do
       expect {
         Polyglot.transpile("NOT VALID SQL HERE !!!", from: :postgres, to: :mysql)
-      }.to raise_error(Polyglot::Error)
+      }.to raise_error(Polyglot::ParseError)
     end
 
     it "raises ArgumentError for unknown dialect" do
       expect {
         Polyglot.transpile("SELECT 1", from: :nonexistent, to: :mysql)
-      }.to raise_error(StandardError)
+      }.to raise_error(ArgumentError, /unknown dialect/i)
     end
 
     it "handles SELECT with WHERE clause" do
@@ -75,7 +75,13 @@ RSpec.describe Polyglot do
     it "raises Polyglot::ParseError for invalid SQL" do
       expect {
         Polyglot.parse("NOT VALID SQL !!!")
-      }.to raise_error(Polyglot::Error)
+      }.to raise_error(Polyglot::ParseError)
+    end
+
+    it "raises ArgumentError for unknown dialect" do
+      expect {
+        Polyglot.parse("SELECT 1", dialect: :nonexistent)
+      }.to raise_error(ArgumentError, /unknown dialect/i)
     end
   end
 
@@ -93,7 +99,13 @@ RSpec.describe Polyglot do
     it "raises for invalid SQL" do
       expect {
         Polyglot.parse_one("NOT VALID !!!")
-      }.to raise_error(Polyglot::Error)
+      }.to raise_error(Polyglot::ParseError)
+    end
+
+    it "raises ArgumentError for unknown dialect" do
+      expect {
+        Polyglot.parse_one("SELECT 1", dialect: :nonexistent)
+      }.to raise_error(ArgumentError, /unknown dialect/i)
     end
   end
 
@@ -125,6 +137,13 @@ RSpec.describe Polyglot do
       expect(regenerated.upcase).to include("SELECT")
       expect(regenerated).to include("1")
     end
+
+    it "raises ArgumentError for unknown dialect" do
+      ast = Polyglot.parse_one("SELECT 1", dialect: :generic)
+      expect {
+        Polyglot.generate(ast, dialect: :nonexistent)
+      }.to raise_error(ArgumentError, /unknown dialect/i)
+    end
   end
 
   describe ".format" do
@@ -142,7 +161,13 @@ RSpec.describe Polyglot do
     it "raises for invalid SQL" do
       expect {
         Polyglot.format("NOT VALID SQL !!!")
-      }.to raise_error(Polyglot::Error)
+      }.to raise_error(Polyglot::ParseError)
+    end
+
+    it "raises ArgumentError for unknown dialect" do
+      expect {
+        Polyglot.format("SELECT 1", dialect: :nonexistent)
+      }.to raise_error(ArgumentError, /unknown dialect/i)
     end
   end
 
@@ -184,6 +209,12 @@ RSpec.describe Polyglot do
     it "supports inspect" do
       result = Polyglot.validate("SELECT 1")
       expect(result.inspect).to include("ValidationResult")
+    end
+
+    it "raises ArgumentError for unknown dialect" do
+      expect {
+        Polyglot.validate("SELECT 1", dialect: :nonexistent)
+      }.to raise_error(ArgumentError, /unknown dialect/i)
     end
   end
 
